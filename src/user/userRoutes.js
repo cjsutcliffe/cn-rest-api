@@ -3,7 +3,7 @@ const {createUser, listUsers} = require("./userControllers");
 
 const userRouter = Router();
 
-userRouter.get("/listUser", listUsers);
+//userRouter.get("/listUser", listUsers);
 userRouter.post("/addUser", createUser);
 
 module.exports = userRouter;
