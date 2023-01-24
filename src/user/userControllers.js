@@ -1,6 +1,4 @@
 const User = require("./userModels");
-const {checkPass} = require("./userControllers");
-
 
 exports.createUser = async (request, response) => {
     console.log(request);
@@ -23,14 +21,11 @@ exports.listUsers = async (request, response) => {
     };
 };
 
-exports.compare = async (request, response) => {
+exports.login = async (request, response) => {
     try {
-        const user = await User.findOne(request.body);
-        response.status(218).send({user: request.body});
-        checkPass(request.body.password, user.password);
-        
+        response.send({user: request.username, text:"Successfully logged in"});
     } catch (error) {
         console.log(error);
-        response.status(500).send({error: error.message});
+        response.status(402).send({error: error.message});
     };
 };
