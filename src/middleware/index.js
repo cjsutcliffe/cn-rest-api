@@ -1,4 +1,5 @@
 const bcrypt=require("bcrypt");
+const jwt = require("jsonwebtoken");
 const User = require("../user/userModels");
 const { request, response } = require("express");
 
@@ -37,5 +38,28 @@ exports.comparePass = async (request,response,next) => {
     } catch (error) {
         console.log(error);
         response.status(401).send({error: error.message})
+    }
+}
+
+exports.tokenCheck = async (request, response, next) => {
+    try {
+        if (!request.header("Authorization")) {
+            console.log("No Authorization section in header")
+            throw new Error ("No token passed");
+        }
+        const token = request.header("Authorization").replace("Bearer ", "");
+        console.log(token);
+        const decodedToken = jwt.verify(token,process.env.SECRET_KEY);
+        const user = await User.findById(decodedToken._id);
+        console.log(user);
+            if (user) {
+                request.user = user;
+                next()
+            } else {
+                throw new Error("user not authorised")
+            }
+    } catch (error) {
+        console.log(error);
+        response.status(500).send({error: error.message})
     }
 }
