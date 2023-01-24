@@ -1,4 +1,6 @@
 const bcrypt=require("bcrypt");
+const User = require("../user/userModels");
+const { request, response } = require("express");
 
 exports.hashPass = async (request,response,next) => {
     try {
