@@ -1,9 +1,11 @@
 const {Router} = require("express");
-const {createUser, listUsers} = require("./userControllers");
+const {createUser, listUsers, compare} = require("./userControllers");
+const {hashPass} = require("../middleware");
 
 const userRouter = Router();
 
-//userRouter.get("/listUser", listUsers);
-userRouter.post("/addUser", createUser);
+userRouter.get("/listUser", listUsers);
+userRouter.post("/addUser", hashPass, createUser);
+userRouter.get("/login", compare);
 
 module.exports = userRouter;
