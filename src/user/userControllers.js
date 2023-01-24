@@ -23,7 +23,7 @@ exports.listUsers = async (request, response) => {
 
 exports.login = async (request, response) => {
     try {
-        response.send({user: request.username, text:"Successfully logged in"});
+        response.send({user: request.user.username, text:"Successfully logged in"});
     } catch (error) {
         console.log(error);
         response.status(402).send({error: error.message});
