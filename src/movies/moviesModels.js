@@ -17,7 +17,7 @@ const movieSchema = new mongoose.Schema({
         unique: false,
         required: false,
         default: "Unknown actor"
-    },
+    }
 });
 
 const Movie = mongoose.model("movie", movieSchema);

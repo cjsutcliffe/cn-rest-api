@@ -1,6 +1,6 @@
 const Movie = require("./moviesModels");
 
-//Create
+//Create - Working
 exports.addMovie = async (request, response) => {
     console.log(request);
     try {
@@ -12,7 +12,7 @@ exports.addMovie = async (request, response) => {
     }
 }
 
-//Read
+//Read - Working
 exports.listMovies = async (request, response) => {
     try {
         const movies = await Movie.find({});
@@ -23,11 +23,44 @@ exports.listMovies = async (request, response) => {
     }
 }
 
-//Update
+//Update Director - Working
+exports.updateDirector = async (request, response) => {
+    try {
+        await Movie.updateOne({title: request.body.title}, {director: request.body.director}),
+        response.send({msg: `Director updated for ${request.body.title}`});
+    } catch (error) {
+        console.log(error);
+        response.status(401).send({error: error.message});
+    };
+};
 
+//Update Actor - Working
+exports.updateActor = async (request, response) => {
+    console.log("entering updateDirector...")
+    try {
+        await Movie.updateOne({title: request.body.title}, {director: request.body.director}),
+        response.send({msg: `Director updated for ${request.body.title}`});
+    } catch (error) {
+        console.log(error);
+        response.status(401).send({error: error.message});
+    };
+};
 
-//Delete
-
+//Delete - Working
+exports.deleteMovie = async (request, response) => {
+    try {
+        const deletedMovie = await Movie.deleteOne({title: request.body.title});
+        if (deletedMovie.deletedCount > 0) {
+            response.status(200).send({ movie: deletedMovie });
+        }
+        else {
+            throw new Error("Did not delete.");
+        }
+    } catch (error) {
+        console.log(error);
+        response.status(500).send({ error: error.message });
+    }
+}
 
 
 

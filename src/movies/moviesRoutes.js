@@ -5,7 +5,7 @@ const movieRouter = Router();
 
 movieRouter.post("/addMovie", addMovie);
 movieRouter.get("/listMovies", listMovies);
-movieRouter.patch("/updateDirector", updateDirector);
+movieRouter.put("/updateDirector", updateDirector);
 movieRouter.delete("/deleteMovie", deleteMovie);
 
 
