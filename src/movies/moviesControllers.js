@@ -36,10 +36,10 @@ exports.updateDirector = async (request, response) => {
 
 //Update Actor - Working
 exports.updateActor = async (request, response) => {
-    console.log("entering updateDirector...")
+    console.log("entering updateActor...")
     try {
-        await Movie.updateOne({title: request.body.title}, {director: request.body.director}),
-        response.send({msg: `Director updated for ${request.body.title}`});
+        await Movie.updateOne({title: request.body.title}, {actor: request.body.actor}),
+        response.send({msg: `Actor updated for ${request.body.title}`});
     } catch (error) {
         console.log(error);
         response.status(401).send({error: error.message});
