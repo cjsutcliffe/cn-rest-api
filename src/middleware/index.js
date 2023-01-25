@@ -2,14 +2,15 @@ const bcrypt=require("bcrypt");
 const jwt = require("jsonwebtoken");
 const User = require("../user/userModels");
 const { request, response } = require("express");
+//const { SECRET_KEY, SALT} = require("dotenv");
 
 exports.hashPass = async (request,response,next) => {
     try {
         // take a password out of the body, hash (encrypt) it using bcrypt and then put back the encrypted password to overwrite the unencrypted password and then pass on the updated body to the next function.
         const passwordCopy = request.body.password;
-        const hashedPass = await bcrypt.hash(passwordCopy,10);
+        const hashedPass = await bcrypt.hash(passwordCopy,process.env.SALT);
         console.log(hashedPass);
-        //first parameter of hash is the plain text password to be encrypted, the second parameter is the 'salt' which is the amount of encrypting that is carried out. More salt gives better encryption but takes longer
+        //first parameter of hash is the plain text password to be encrypted, the second parameter is the 'salt' which is the amount of encrypting that is carried out. More salt gives better encryption but takes longer. SALT is defined in dotenv for security.
         request.body.password = hashedPass;
         //here we overwrite the unencrypted password with the encrypted version.
         next();
