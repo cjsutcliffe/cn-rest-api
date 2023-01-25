@@ -32,3 +32,23 @@ exports.login = async (request, response) => {
         response.status(402).send({error: error.message});
     };
 };
+
+exports.updateEmail = async (request, response) => {
+    try {
+        await User.updateOne({username: request.user.username}, {email: request.body.newemail} )
+        response.send({msg: `User ${request.user.username} email updated.`})
+    } catch (error) {
+        console.log(error);
+        response.status(401).send({error: error.message});
+    };
+};
+
+exports.deleteUser = async (request, response) => {
+    try {
+        await User.deleteOne({username: request.user.username})
+        response.send({'deleteSuccess': true})
+    } catch (error) {
+        console.log(error)
+        response.send({'deleteSuccess': false})
+    }
+}
