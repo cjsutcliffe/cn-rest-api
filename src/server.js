@@ -3,6 +3,7 @@ require("./db/connection");
 const express = require("express");
 const userRouter = require('./user/userRoutes');
 const movieRouter = require('./movies/moviesRoutes');
+const cors = require ("cors");
 
 const app = express();
 const port = process.env.PORT  || 5001;
