@@ -11,5 +11,6 @@ userRouter.post("/login", comparePass, login);
 userRouter.put("/updateUser", tokenCheck, updateEmail);
 //delete account
 userRouter.delete("/deleteUser", comparePass, deleteUser);
+userRouter.get("/authCheck", tokenCheck, login);
 
 module.exports = userRouter;
